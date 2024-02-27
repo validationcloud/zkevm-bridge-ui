@@ -197,11 +197,13 @@ export const getDeposit = ({
       url: "/bridge",
     })
     .then((res) => {
+      console.log("res=", res);
       const parsedData = getDepositResponseParser.safeParse(res.data);
 
       if (parsedData.success) {
         return parsedData.data.deposit;
       } else {
+        console.log("parsedData=", parsedData);
         throw parsedData.error;
       }
     });

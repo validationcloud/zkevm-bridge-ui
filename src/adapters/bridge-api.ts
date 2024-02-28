@@ -12,7 +12,7 @@ interface DepositInput {
   deposit_cnt: number;
   dest_addr: string;
   dest_net: number;
-  global_index: string;
+  //global_index: string;
   network_id: number;
   orig_addr: string;
   orig_net: number;
@@ -27,7 +27,7 @@ interface DepositOutput {
   deposit_cnt: number;
   dest_addr: string;
   dest_net: number;
-  global_index: string;
+  //global_index: string;
   network_id: number;
   orig_addr: string;
   orig_net: number;
@@ -55,7 +55,7 @@ const depositParser = StrictSchema<DepositInput, DepositOutput>()(
     deposit_cnt: z.coerce.number().int().nonnegative(),
     dest_addr: z.string(),
     dest_net: z.number(),
-    global_index: z.string(),
+    //global_index: z.string(),
     network_id: z.number(),
     orig_addr: z.string(),
     orig_net: z.number(),
@@ -159,6 +159,7 @@ export const getDeposits = ({
       url: `/bridges/${ethereumAddress}`,
     })
     .then((res) => {
+      console.log("res=", res);
       const parsedData = getDepositsResponseParser.safeParse(res.data);
 
       if (parsedData.success) {
@@ -167,6 +168,7 @@ export const getDeposits = ({
           total: parsedData.data.total_cnt !== undefined ? parsedData.data.total_cnt : 0,
         };
       } else {
+        console.log("parsedData=", parsedData);
         throw parsedData.error;
       }
     });
